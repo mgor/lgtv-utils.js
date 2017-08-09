@@ -106,4 +106,4 @@ Information is printed to `stdout` (colorized) and written in `log/watcher.log`
 
 If the TV is not on, it will try to connect to it every 5 seconds, hence it will automagically connect if the TV was off when it was started.
 
-The first time you run the util you'll have to allow it as an _LG Connected App_.
+The first time you run the util you'll have to allow it as an _LG Connected App_. The approved credentials will be stored in `credentials/`.
