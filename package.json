@@ -1,0 +1,32 @@
+{
+  "name": "lgtv-utils",
+  "version": "1.0.0",
+  "description": "Small utils for doing stuff with LGTV WebOS.",
+  "main": " ",
+  "dependencies": {
+    "config": "^1.26.1",
+    "lgtv2": "^1.3.0",
+    "moment": "^2.18.1",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgor/lgtv-utils.js.git"
+  },
+  "keywords": [
+    "lgtv",
+    "webos",
+    "utils",
+    "node.js"
+  ],
+  "author": "Mikael Göransson <github@mgor.se>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mgor/lgtv-utils.js/issues"
+  },
+  "homepage": "https://github.com/mgor/lgtv-utils.js#readme"
+}

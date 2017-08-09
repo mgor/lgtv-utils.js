@@ -1,0 +1,9 @@
+{
+    "ipaddress": "192.168.0.20",
+    "maxVolume": 10,
+    "timeout": 120,
+    "overstep": {
+        "period": 60,
+        "count": 3
+    }
+}
