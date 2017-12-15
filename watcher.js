@@ -51,6 +51,13 @@ function getTimestamp() {
 lgtv.on('connect', function() {
     log.info('connected');
     runtime.connected = true;
+    lgtv.request('ssap://audio/getVolume', function(error, response) {
+        log.info('current volume: '+ response.volume);
+    });
+
+    lgtv.request('ssap://tv/getCurrentChannel', function(error, response) {
+        log.info('current channel: '+ response.channelNumber);
+    });
 
     lgtv.subscribe('ssap://audio/getVolume', function(error, response) {
         if (error) {
