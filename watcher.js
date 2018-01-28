@@ -9,6 +9,8 @@ const lgtv = require('lgtv2')({
     keyFile: './credentials/lgtv-'
 });
 
+const wrapperTimeout = (process.argv[2] != undefined && process.argv[2] === 'true');
+
 winston.loggers.add('standard', {
     console: {
         level: 'silly',
@@ -49,7 +51,10 @@ function getTimestamp() {
 }
 
 lgtv.on('connect', function() {
-    log.info('connected');
+    if (!wrapperTimeout) {
+        log.info('connected');
+    }
+
     runtime.connected = true;
     lgtv.request('ssap://audio/getVolume', function(error, response) {
         log.info('current volume: '+ response.volume);
@@ -57,6 +62,22 @@ lgtv.on('connect', function() {
 
     lgtv.request('ssap://tv/getCurrentChannel', function(error, response) {
         log.info('current channel: '+ response.channelNumber);
+    });
+
+    lgtv.request('ssap://audio/getVolume', function(error, response) {
+        if (!wrapperTimeout) {
+            log.info('current volume: '+ response.volume);
+        }
+
+        if (response.volume > config.maxVolume) {
+            lgtv.request('ssap://audio/setVolume', {volume: config.maxVolume});
+        }
+    });
+
+    lgtv.request('ssap://tv/getCurrentChannel', function(error, response) {
+        if (!wrapperTimeout) {
+            log.info('current channel: '+ response.channelNumber);
+        }
     });
 
     lgtv.subscribe('ssap://audio/getVolume', function(error, response) {
@@ -137,8 +158,10 @@ lgtv.on('connect', function() {
 });
 
 process.on('uncaughtException', function(error) {
+    var rc = 1;
     if (runtime.connected) {
         log.info('disconnected');
+        rc = 0;
     }
-    process.exit(1);
+    process.exit(rc);
 });

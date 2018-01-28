@@ -5,8 +5,15 @@ which npm &> /dev/null || { echo "you need to install npm"; exit 1; }
 
 [[ ! -d node_modules/ ]] && npm install
 
-echo "starting watcher..."
+wrapper_timeout=false
 
-while ! node watcher.js; do
-    sleep 5
+echo "starting watcher..."
+while true; do
+    timeout 300 node watcher.js "${wrapper_timeout}"
+    if (( $? != 124 )); then
+        sleep 5
+        wrapper_timeout=false
+    else
+        wrapper_timeout=true
+    fi
 done
